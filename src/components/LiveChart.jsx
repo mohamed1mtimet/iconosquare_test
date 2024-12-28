@@ -3,9 +3,9 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContai
 import { useLiveChartContext } from '../utils/hooks/useLiveChartContext';
 
 const LiveChart = () => {
-    const { data } = useLiveChartContext();
-    const nbTotalEvents = data?.events?.length
-    const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+    const { state } = useLiveChartContext();
+    const nbTotalEvents = state?.events?.length
+    const eventsFiltered = state.events.slice(nbTotalEvents - 20, nbTotalEvents);
     return (
         <div className="mb-8">
             <ResponsiveContainer height={250}>
