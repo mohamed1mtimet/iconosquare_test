@@ -23,6 +23,13 @@ const liveChartReducer = (state, action) => {
       return state;
     case "toggle_play":
       return { ...state, isPlaying: !state.isPlaying };
+    case "edit_event":
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event.index === action.payload.index ? action.payload : event
+        ),
+      };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
