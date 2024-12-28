@@ -12,8 +12,10 @@ import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const LiveChart = () => {
   const { state, dispatch } = useLiveChartContext();
-  const nbTotalEvents = state?.events?.length;
-  const eventsFiltered = state.events.slice(nbTotalEvents - 20, nbTotalEvents);
+  const windwEnd =
+    state.windwEnd === -1 ? state?.events?.length : state.windwEnd;
+  const eventsFiltered = state.events.slice(windwEnd - 20, windwEnd);
+
   return (
     <div className="mb-8">
       <ResponsiveContainer height={250}>

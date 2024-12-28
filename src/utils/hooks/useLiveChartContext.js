@@ -10,6 +10,7 @@ const initialEvents = Array.from(Array(50)).map((_, ix) =>
 const initialData = {
   events: initialEvents,
   isPlaying: true,
+  windwEnd: -1,
 };
 
 const liveChartReducer = (state, action) => {
@@ -49,10 +50,18 @@ const liveChartReducer = (state, action) => {
         ...state,
         events: state.events.map((event) => ({
           index: event.index,
-          value1: event.originalValue1 || event.value1,
+          value1:
+            typeof event.originalValue1 !== "undefined"
+              ? event.originalValue1
+              : event.value1,
           value2: event.originalValue2 || event.value2,
           cellsEditState: [false, false],
         })),
+      };
+    case "set_window":
+      return {
+        ...state,
+        windwEnd: action.payload,
       };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

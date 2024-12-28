@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const Cell = ({ value, onValueChange, setIsEditing, isEditing }) => {
-  const [localValue, setLocalValue] = useState(0);
+  const [localValue, setLocalValue] = useState(value || 0);
   const editValue = useCallback(() => {
     onValueChange(localValue);
     setIsEditing(false);
@@ -79,8 +79,9 @@ const DataRow = ({ event }) => {
 };
 const LiveTable = (props) => {
   const { state } = useLiveChartContext();
-  const nbTotalEvents = state?.events?.length;
-  const eventsFiltered = state.events.slice(nbTotalEvents - 20, nbTotalEvents);
+  const windwEnd =
+    state.windwEnd === -1 ? state?.events?.length : state.windwEnd;
+  const eventsFiltered = state.events.slice(windwEnd - 20, windwEnd);
   return (
     <div className="flex border border-gray-300 rounded">
       <div>
