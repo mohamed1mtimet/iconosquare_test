@@ -30,6 +30,15 @@ const liveChartReducer = (state, action) => {
           event.index === action.payload.index ? action.payload : event
         ),
       };
+    case "set_editing":
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event.index === action.payload.index
+            ? { ...event, cellsEditState: action.payload.cellsEditState }
+            : event
+        ),
+      };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
