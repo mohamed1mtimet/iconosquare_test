@@ -35,9 +35,24 @@ const liveChartReducer = (state, action) => {
         ...state,
         events: state.events.map((event) =>
           event.index === action.payload.index
-            ? { ...event, cellsEditState: action.payload.cellsEditState }
+            ? {
+                ...event,
+                cellsEditState: action.payload.cellsEditState,
+                originalValue1: event.originalValue1 || event.value1,
+                originalValue2: event.originalValue2 || event.value1,
+              }
             : event
         ),
+      };
+    case "reset_events":
+      return {
+        ...state,
+        events: state.events.map((event) => ({
+          index: event.index,
+          value1: event.originalValue1 || event.value1,
+          value2: event.originalValue2 || event.value2,
+          cellsEditState: [false, false],
+        })),
       };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

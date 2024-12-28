@@ -1,17 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
-const Cell = ({
-  value: initialValue,
-  onValueChange,
-  setIsEditing,
-  isEditing,
-}) => {
-  const [localValue, setLocalValue] = useState(initialValue);
+const Cell = ({ value, onValueChange, setIsEditing, isEditing }) => {
+  const [localValue, setLocalValue] = useState(0);
   const editValue = useCallback(() => {
     onValueChange(localValue);
     setIsEditing(false);
   }, [onValueChange, localValue, setIsEditing]);
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
 
   return (
     <div className=" border-gray-300 border-t h-11">
